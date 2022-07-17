@@ -1,7 +1,7 @@
-// import mysql2
-const mysql = require('mysql2');
 // import express
 const express = require('express');
+// import mysql2
+const mysql = require('mysql2');
 // import module given to us by colleage
 const inputCheck = require('./utils/inputCheck');
 // port designation
@@ -26,7 +26,7 @@ const db = mysql.createConnection(
     console.log('Connected to the election database.')
 );
 
-// List all the candidates
+// Get all the candidates
 app.get('/api/candidates', (req, res) => {
     const sql = `SELECT * FROM candidates`;
 
@@ -83,7 +83,12 @@ app.delete('/api/candidate/:id', (req, res) => {
 
 // Create a candidate
 app.post('/api/candidate', ({ body }, res) => {
-    const errors = inputCheck(body, 'first_name', 'last_name', 'industry_connected');
+    const errors = inputCheck(
+        body,
+            'first_name', 
+            'last_name',
+            'industry_connected'
+        );
     if (errors) {
         res.status(400).json({ error: errors });
         return;
