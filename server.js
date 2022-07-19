@@ -15,8 +15,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/api', apiRoutes);
 
-
-
 // Get all parties
 app.get('/api/parties', (req, res) => {
     const sql = `SELECT * FROM parties`;
