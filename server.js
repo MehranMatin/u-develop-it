@@ -1,5 +1,4 @@
-// import mysql2
-const mysql = require('mysql2');
+const db = require('./db/connection');
 // import express
 const express = require('express');
 // import module given to us by colleage
@@ -8,20 +7,13 @@ const inputCheck = require('./utils/inputCheck');
 const PORT = process.env.PORT || 3001;
 // expression to instantiate express
 const app = express();
+// can omit file name from path because index.js is default
+const apiRoutes = require('./routes/apiRoutes');
 
 // Express middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-// Connect to database
-const db = mysql.createConnection({
-        host: 'localhost',
-        // Your MySQL username
-        user: 'root',
-        // Your MySQL password
-        password: '18001800',
-        database: 'election'
-});
+app.use('/api', apiRoutes);
 
 // Get all the candidates
 app.get('/api/candidates', (req, res) => {
