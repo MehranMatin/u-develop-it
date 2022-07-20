@@ -1,9 +1,6 @@
 // import express
 const express = require('express');
-// database
 const db = require('./db/connection');
-// import module given to us by colleage
-const inputCheck = require('./utils/inputCheck');
 // can omit file name from path because index.js is default
 const apiRoutes = require('./routes/apiRoutes');
 
@@ -16,7 +13,6 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Use apiRoutes
 app.use('/api', apiRoutes);
 
 // Default response for any other request (Not Found)
@@ -25,7 +21,7 @@ app.use((req, res) => {
 });
 
 // Start server after DB connection
-db.connect(err => {
+db.connect((err) => {
     if (err) throw err;
     console.log('Database connected.');
     app.listen(PORT, () => {
